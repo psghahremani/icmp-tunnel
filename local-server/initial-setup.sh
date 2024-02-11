@@ -19,7 +19,7 @@ iptables -t nat -C POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE || iptables -
 mkdir /etc/iptables
 iptables-save > /etc/iptables/rules.v4
 
-apt install -y iptables-persistent
+DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
 systemctl enable netfilter-persistent.service
 
 # Reboot, then verify the following:
