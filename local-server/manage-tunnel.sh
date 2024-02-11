@@ -4,7 +4,8 @@ FOREIGN_SERVER_IP=<SET_THIS_FIELD>
 
 startTunnel() {
   /opt/icmp-tunnel/icmptunnel $FOREIGN_SERVER_IP -r 20 -k 3 > /dev/null 2>&1 &
-  sleep 1
+  sleep 5
+  # TODO: Instead of sleeping a certain amount of time, check the errors and retry.
   ip addr add 10.0.0.2/24 dev tun0
   ip link set up dev tun0
   ip route del default > /dev/null 2>&1
