@@ -29,7 +29,7 @@ trap terminate INT TERM
 stopTunnel
 while [ MUST_TERMINATE != 0 ]; do
   sleep 1
-  CURRENT_IP=$(curl -s ifconfig.io)
+  CURRENT_IP=$(curl -s -m 2 ifconfig.io)
   if [[ $? == 0 && $CURRENT_IP == $FOREIGN_SERVER_IP ]]; then
     echo "Tunnel is up."
   else
