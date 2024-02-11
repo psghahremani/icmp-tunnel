@@ -13,16 +13,12 @@ iptables -t nat -F
 
 DEFAULT_INTERFACE=$(ip route show default | awk '{print $5}')
 iptables -t nat -C POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE || iptables -t nat -A POSTROUTING -o $DEFAULT_INTERFACE -j MASQUERADE
-iptables -t nat -C POSTROUTING -o tun0 -j MASQUERADE || iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
 
 mkdir /etc/iptables
 iptables-save > /etc/iptables/rules.v4
 
 DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
 systemctl enable netfilter-persistent.service
-
-cp ./add-routes.sh /opt/icmp-tunnel
-cp ./skipped-ip-ranges.txt /opt/icmp-tunnel
 
 # Reboot, then verify the following:
 # sysctl -a | grep "net.ipv4.ip_forward = 1"
