@@ -1,7 +1,8 @@
 #!/usr/bin/bash
 
 startServer() {
-  /opt/icmp-tunnel/icmptunnel -s > /dev/null 2>&1 &
+  echo "Running the server with custom parameters..."
+  /opt/icmp-tunnel/icmptunnel -s -k 0.5 -r 10 -e &
   sleep 1
   ip addr add 10.0.0.1/24 dev tun0
   ip link set up dev tun0
